@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Suspense } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import PageNotFound from "./containers/PageNotFound";
+import HomePage from "./containers/HomeTemplate/HomePage";
+import ShopArtPage from "containers/HomeTemplate/ShopArtPage";
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Suspense>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop-art" element={<ShopArtPage />} />
+          <Route path="" element={<PageNotFound/>} />
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
-}
+};
 
 export default App;
