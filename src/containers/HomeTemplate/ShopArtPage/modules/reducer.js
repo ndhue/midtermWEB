@@ -2,7 +2,6 @@ import * as ActionTypes from './constants';
 
 const initialState = {
   data: null,
-  product: null,
   loading: false,
   error: null,
 }

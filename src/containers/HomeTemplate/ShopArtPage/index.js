@@ -4,7 +4,44 @@ import { actFetchProductsData} from './modules/actions';
 import './style.css';
 export default function ShopArtPage() {
   
-  
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.productsManagementReducer.data);
+  const [productsData, setProductsData] = useState(null);
+
+  useEffect(() => {
+    dispatch(actFetchProductsData());
+  }, []);
+
+  useEffect(() => {
+    setProductsData(data);
+  }, [data]);
+
+  const handleRenderTable = () => {
+    return productsData?.map((product, index) => {
+      return (
+        <div className="col-lg-4 col-md-4 col-sm-6 col-6 " key={index}>
+          <form>
+            <div className="single_product">
+              <div className="product_thumb">
+                <a href={`/detail/`+`${product.idCategory}`}>
+                  <img className="primary_img" src={product.strCategoryThumb} alt="consectetur" />
+                </a>
+              </div>
+              <div className="product_content grid_content text-center">
+                <h4 className="product_name"><a href={`/detail/`+`${product.idCategory}`}>{product.strCategory}</a></h4>
+                <div className="price_box">
+                  <span className="current_price">{product.strCategoryDescription}</span>
+                </div>
+                <div className="add_to_cart">
+                  <button className="btn btn-primary" type='submit' data-tippy="Add To Cart" data-tippy-inertia="true" data-tippy-delay={50} data-tippy-arrow="true" data-tippy-placement="top">Thêm giỏ hàng</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>  
+      )
+    })
+  }
   return (
     <div className='container cover'>
       <h3 className='text-center my-3 user-title'>Cửa hàng</h3>
@@ -31,7 +68,7 @@ export default function ShopArtPage() {
             </div>
             <div className="col-lg-9 col-md-12">
               <div className="row shop_wrapper">
-                
+                {handleRenderTable()}
               </div>
             </div>
           </div>
